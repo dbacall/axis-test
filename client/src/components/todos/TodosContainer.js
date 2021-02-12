@@ -6,6 +6,7 @@ const TodosContainer = ({ todoAdded }) => {
   const [loading, setLoading] = useState(false);
   const [todos, setTodos] = useState([]);
   const [todoUpdated, setTodoUpdated] = useState(false);
+  const [todoDeleted, setTodoDeleted] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -19,13 +20,12 @@ const TodosContainer = ({ todoAdded }) => {
       setTodos(response.data);
       setLoading(false);
     })();
-  }, [todoAdded, todoUpdated]);
+  }, [todoAdded, todoUpdated, todoDeleted]);
 
   const updateTodoCompleted = async (data, id) => {
     setTodoUpdated(false);
 
     setLoading(true);
-    console.log(id);
 
     const path = `/todo/completed/${id}`;
 
@@ -34,12 +34,28 @@ const TodosContainer = ({ todoAdded }) => {
     setTodoUpdated(true);
     setLoading(false);
   };
+
+  const deleteTodo = async (id) => {
+    setTodoDeleted(false);
+
+    setLoading(true);
+
+    const path = `/todo/${id}`;
+
+    console.log(path);
+
+    await api.request({ method: 'delete', path });
+
+    setTodoDeleted(true);
+    setLoading(false);
+  };
   return (
     <Todos
       todoAdded={todoAdded}
       loading={loading}
       todos={todos}
       updateTodoCompleted={updateTodoCompleted}
+      deleteTodo={deleteTodo}
     />
   );
 };

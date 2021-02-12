@@ -5,12 +5,16 @@ import { format, parseISO } from 'date-fns';
 import { enGB } from 'date-fns/locale';
 import Checkbox from '@material-ui/core/Checkbox';
 
-const Todos = ({ loading, todos, updateTodoCompleted }) => {
+const Todos = ({ loading, todos, updateTodoCompleted, deleteTodo }) => {
   const handleUpdate = ({ id, completed }) => {
     const data = {
       completed: !completed,
     };
     updateTodoCompleted(data, id);
+  };
+
+  const handleDelete = (id) => {
+    deleteTodo(id);
   };
 
   const renderTodoRows = () => {
@@ -39,7 +43,7 @@ const Todos = ({ loading, todos, updateTodoCompleted }) => {
             <button>Edit</button>
           </td>
           <td>
-            <button>Delete</button>
+            <button onClick={() => handleDelete(todo._id)}>Delete</button>
           </td>
         </tr>
       ));
