@@ -18,6 +18,7 @@ const AddTodo = ({ createTodo, todoAdded }) => {
     };
 
     createTodo(data);
+    setOpenForm(false);
   };
 
   const renderForm = () => {
