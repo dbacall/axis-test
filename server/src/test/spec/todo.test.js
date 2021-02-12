@@ -32,7 +32,7 @@ describe('Todo', () => {
     expect(data.body[1].name).to.equal('Shopping');
   });
 
-  it.only('should update a todo', async () => {
+  it('should update a todo', async () => {
     const completeDate = new Date(2021, 02, 24);
 
     const todo = await addTodo('Tech Test', 'complete tech test', completeDate);
@@ -45,5 +45,20 @@ describe('Todo', () => {
 
     expect(data.name).to.equal('Tech Test');
     expect(data.description).to.equal('complete tech test quicker');
+  });
+
+  it.only('should delete a todo', async () => {
+    const completeDate = new Date(2021, 02, 24);
+
+    const todo = await addTodo('Tech Test', 'complete tech test', completeDate);
+
+    const res = await supertest(app).delete(`/todo/${todo.data._id}`);
+    console.log(res.body);
+
+    const data = await Todo.findOne({ name: 'Tech Test' });
+
+    console.log(data);
+
+    expect(data).to.be.null;
   });
 });

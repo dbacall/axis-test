@@ -39,6 +39,16 @@ const TodoController = {
         res.status(400).send({ error: 'Todo could not be updated.' })
       );
   },
+
+  delete: async (req, res) => {
+    await Todo.findByIdAndDelete(req.params.id)
+      .then((data) =>
+        res.status(200).send({ message: 'Todo successfully deleted', data })
+      )
+      .catch(() =>
+        res.status(400).send({ error: 'Todo could not be deleted.' })
+      );
+  },
 };
 
 module.exports = TodoController;
