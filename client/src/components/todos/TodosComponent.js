@@ -6,6 +6,12 @@ import { enGB } from 'date-fns/locale';
 import Checkbox from '@material-ui/core/Checkbox';
 
 const Todos = ({ loading, todos, updateTodoCompleted, deleteTodo }) => {
+  const [openForm, setOpenForm] = useState(false);
+  const [todoIndexToEdit, setTodoIndexToEdit] = useState('');
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [dateToCompleteBy, setDateToCompleteBy] = useState('');
+
   const handleUpdate = ({ id, completed }) => {
     const data = {
       completed: !completed,
@@ -21,11 +27,42 @@ const Todos = ({ loading, todos, updateTodoCompleted, deleteTodo }) => {
     if (todos.length > 0) {
       return todos.map((todo, index) => (
         <tr key={index}>
-          <td>{todo.name}</td>
-          <td>{todo.description}</td>
           <td>
-            {todo.dateToCompleteBy &&
-              format(parseISO(todo.dateToCompleteBy), 'P', { locale: enGB })}
+            {index === todoIndexToEdit ? (
+              <input
+                type="text"
+                placeholder="Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            ) : (
+              todo.name
+            )}
+          </td>
+          <td>
+            {index === todoIndexToEdit ? (
+              <input
+                type="text"
+                placeholder="Description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            ) : (
+              todo.description
+            )}
+          </td>
+          <td>
+            {index === todoIndexToEdit ? (
+              <input
+                type="date"
+                placeholder="Date to complete"
+                value={dateToCompleteBy}
+                onChange={(e) => setDateToCompleteBy(e.target.value)}
+              />
+            ) : (
+              todo.dateToCompleteBy &&
+              format(parseISO(todo.dateToCompleteBy), 'P', { locale: enGB })
+            )}
           </td>
           <td>
             <Checkbox
@@ -40,7 +77,25 @@ const Todos = ({ loading, todos, updateTodoCompleted, deleteTodo }) => {
             />
           </td>
           <td>
-            <button>Edit</button>
+            {index === todoIndexToEdit ? (
+              <button
+                onClick={() => {
+                  setTodoIndexToEdit(index);
+                  setOpenForm(!openForm);
+                }}
+              >
+                Complete Edit
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  setTodoIndexToEdit(index);
+                  setOpenForm(!openForm);
+                }}
+              >
+                Edit
+              </button>
+            )}
           </td>
           <td>
             <button onClick={() => handleDelete(todo._id)}>Delete</button>
@@ -56,6 +111,7 @@ const Todos = ({ loading, todos, updateTodoCompleted, deleteTodo }) => {
       {loading ? (
         <Loader />
       ) : (
+        // renderEditForm()
         <table>
           <thead>
             <tr>
