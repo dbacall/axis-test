@@ -31,4 +31,19 @@ describe('Todo', () => {
     expect(data.body[0].name).to.equal('Tech Test');
     expect(data.body[1].name).to.equal('Shopping');
   });
+
+  it.only('should update a todo', async () => {
+    const completeDate = new Date(2021, 02, 24);
+
+    const todo = await addTodo('Tech Test', 'complete tech test', completeDate);
+
+    const update = { description: 'complete tech test quicker' };
+    const res = await supertest(app).put(`/todo/${todo.data._id}`).send(update);
+    console.log(res.body);
+
+    const data = await Todo.findOne({ name: 'Tech Test' });
+
+    expect(data.name).to.equal('Tech Test');
+    expect(data.description).to.equal('complete tech test quicker');
+  });
 });

@@ -6,10 +6,10 @@ const TodoController = {
 
     await newTodo
       .save()
-      .then((todo) =>
+      .then((data) =>
         res
           .status(200)
-          .json({ message: 'Todo successfully added to database', todo })
+          .json({ message: 'Todo successfully added to database', data })
       )
       .catch((error) =>
         res
@@ -18,10 +18,26 @@ const TodoController = {
       );
   },
 
-  getAll: (req, res) => {
-    Todo.find().then((todos) => {
+  getAll: async (req, res) => {
+    await Todo.find().then((todos) => {
       res.status(200).send(todos);
     });
+  },
+
+  update: async (req, res) => {
+    await Todo.findByIdAndUpdate(
+      { _id: req.params.id },
+      {
+        description: req.body.description,
+        dateToCompleteBy: req.body.dateToCompleteBy,
+      }
+    )
+      .then((data) =>
+        res.status(200).send({ message: 'Todo successfully updated', data })
+      )
+      .catch(() =>
+        res.status(400).send({ error: 'Todo could not be updated.' })
+      );
   },
 };
 
