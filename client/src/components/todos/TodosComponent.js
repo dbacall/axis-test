@@ -109,6 +109,8 @@ const Todos = ({
                 onClick={() => {
                   setTodoIndexToEdit(index);
                   setOpenForm(!openForm);
+                  setName(todo.name);
+                  setDescription(todo.description);
                 }}
                 className="edit-btn"
               >
