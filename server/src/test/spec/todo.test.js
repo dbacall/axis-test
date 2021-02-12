@@ -65,7 +65,7 @@ describe('Todo', () => {
     const todo = await addTodo('Tech Test', 'complete tech test', completeDate);
 
     const update1 = { completed: true };
-    await supertest(app).put(`/todo/${todo.data._id}`).send(update1);
+    await supertest(app).put(`/todo/completed/${todo.data._id}`).send(update1);
 
     let data = await Todo.findOne({ name: 'Tech Test' });
 
@@ -73,7 +73,7 @@ describe('Todo', () => {
     expect(data.completed).to.be.true;
 
     const update2 = { completed: false };
-    await supertest(app).put(`/todo/${todo.data._id}`).send(update2);
+    await supertest(app).put(`/todo/completed/${todo.data._id}`).send(update2);
 
     data = await Todo.findOne({ name: 'Tech Test' });
 

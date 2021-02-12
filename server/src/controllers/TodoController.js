@@ -41,6 +41,21 @@ const TodoController = {
       );
   },
 
+  updateCompleted: async (req, res) => {
+    await Todo.findByIdAndUpdate(
+      { _id: req.params.id },
+      {
+        completed: req.body.completed,
+      }
+    )
+      .then((data) =>
+        res.status(200).send({ message: 'Todo successfully updated', data })
+      )
+      .catch(() =>
+        res.status(400).send({ error: 'Todo could not be updated.' })
+      );
+  },
+
   delete: async (req, res) => {
     await Todo.findByIdAndDelete(req.params.id)
       .then((data) =>
