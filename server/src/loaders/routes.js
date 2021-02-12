@@ -1,6 +1,6 @@
-// const users = require('../api/user');
+const todo = require('../api/todo');
 
 module.exports = (app) => {
   // Routes
-  // app.use('/users', users);
+  app.use('/todo', todo);
 };
