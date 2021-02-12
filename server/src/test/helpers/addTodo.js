@@ -10,7 +10,5 @@ module.exports = async (name, description, dateToCompleteBy) => {
 
   const result = await supertest(app).post('/todo').send(data);
 
-  console.log(result.body);
-
   return result.body;
 };

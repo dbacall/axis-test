@@ -17,6 +17,12 @@ const TodoController = {
           .json({ message: 'Todo could not be added to database', error })
       );
   },
+
+  getAll: (req, res) => {
+    Todo.find().then((todos) => {
+      res.status(200).send(todos);
+    });
+  },
 };
 
 module.exports = TodoController;
