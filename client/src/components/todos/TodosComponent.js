@@ -51,6 +51,7 @@ const Todos = ({
                 placeholder="Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                className="edit-form-input"
               />
             ) : (
               todo.name
@@ -63,6 +64,7 @@ const Todos = ({
                 placeholder="Description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
+                className="edit-form-input"
               />
             ) : (
               todo.description
@@ -75,6 +77,7 @@ const Todos = ({
                 placeholder="Date to complete"
                 value={dateToCompleteBy}
                 onChange={(e) => setDateToCompleteBy(e.target.value)}
+                className="edit-form-input"
               />
             ) : (
               todo.dateToCompleteBy &&
@@ -95,7 +98,10 @@ const Todos = ({
           </td>
           <td>
             {index === todoIndexToEdit ? (
-              <button onClick={() => handleUpdate(todo._id)}>
+              <button
+                onClick={() => handleUpdate(todo._id)}
+                className="edit-btn"
+              >
                 Complete Edit
               </button>
             ) : (
@@ -104,13 +110,19 @@ const Todos = ({
                   setTodoIndexToEdit(index);
                   setOpenForm(!openForm);
                 }}
+                className="edit-btn"
               >
                 Edit
               </button>
             )}
           </td>
           <td>
-            <button onClick={() => handleDelete(todo._id)}>Delete</button>
+            <button
+              onClick={() => handleDelete(todo._id)}
+              className="delete-btn"
+            >
+              Delete
+            </button>
           </td>
         </tr>
       ));
@@ -118,25 +130,27 @@ const Todos = ({
   };
 
   return (
-    <div className="Todos">
+    <div>
       <h3>Todos</h3>
       {loading ? (
         <Loader />
       ) : (
         // renderEditForm()
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Date To Complete By</th>
-              <th>Completed</th>
-              <th></th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>{renderTodoRows()}</tbody>
-        </table>
+        <div className="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Date To Complete By</th>
+                <th>Completed</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>{renderTodoRows()}</tbody>
+          </table>
+        </div>
       )}
     </div>
   );

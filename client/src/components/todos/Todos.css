@@ -1,2 +1,41 @@
-div.Todos {
+.table-container {
+  overflow-x: auto;
+  width: 90%;
+  margin: auto;
+}
+
+table {
+  border: 1px solid lightgray;
+  border-collapse: collapse;
+  margin: auto;
+  margin-top: 20px;
+  width: 100%;
+}
+
+th,
+td {
+  text-align: center;
+  padding: 10px;
+}
+
+tbody > tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+
+.delete-btn {
+  background-color: red;
+}
+.edit-btn {
+  background-color: green;
+}
+
+.edit-form-input {
+  padding: 10px 15px;
+  margin-right: 20px;
+}
+
+@media only screen and (max-width: 576px) {
+  table {
+    /* width: 200px; */
+  }
 }
