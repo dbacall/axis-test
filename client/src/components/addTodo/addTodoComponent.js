@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import './addTodo.css';
+import Todos from '../todos/TodosContainer';
 
-const AddTodo = ({ createTodo }) => {
+const AddTodo = ({ createTodo, todoAdded }) => {
   const [openForm, setOpenForm] = useState(false);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -51,6 +52,7 @@ const AddTodo = ({ createTodo }) => {
     <div className="addTodo">
       <button onClick={() => setOpenForm(!openForm)}>Add Todo</button>
       {renderForm()}
+      <Todos todoAdded={todoAdded} />
     </div>
   );
 };
