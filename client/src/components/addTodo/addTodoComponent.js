@@ -23,26 +23,29 @@ const AddTodo = ({ createTodo, todoAdded }) => {
   const renderForm = () => {
     if (openForm) {
       return (
-        <form onSubmit={submitTodo}>
+        <form onSubmit={submitTodo} className="add-form">
           <input
             type="text"
             placeholder="Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            className="add-form-input"
           />
           <input
             type="text"
             placeholder="Description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            className="add-form-input"
           />
           <input
             type="date"
             placeholder="Date to complete"
             value={dateToCompleteBy}
             onChange={(e) => setDateToCompleteBy(e.target.value)}
+            className="add-form-input date-input"
           />
-          <button>Submit</button>
+          <button className="add-submit-btn">Submit</button>
         </form>
       );
     }
@@ -50,7 +53,9 @@ const AddTodo = ({ createTodo, todoAdded }) => {
 
   return (
     <div className="addTodo">
-      <button onClick={() => setOpenForm(!openForm)}>Add Todo</button>
+      <button onClick={() => setOpenForm(!openForm)} className="add-btn">
+        Add Todo
+      </button>
       {renderForm()}
       <Todos todoAdded={todoAdded} />
     </div>

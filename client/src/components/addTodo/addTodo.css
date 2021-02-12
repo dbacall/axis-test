@@ -1,2 +1,59 @@
-div.addTodo {
+button {
+  background-color: blue;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+button:focus {
+  outline: 0;
+}
+
+.add-btn {
+  margin-top: 20px;
+}
+
+.add-form {
+  display: flex;
+  justify-content: center;
+  width: 60%;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.add-form-input {
+  padding: 10px 15px;
+  margin-right: 20px;
+}
+
+.date-input {
+  min-width: 140px;
+}
+
+@media only screen and (max-width: 992px) {
+  .add-form {
+    flex-direction: column;
+  }
+
+  .add-form-input {
+    margin-right: 0;
+  }
+
+  .add-form-input:not(:first-child) {
+    margin-top: 20px;
+  }
+
+  .add-submit-btn {
+    margin-top: 20px;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .add-form {
+    width: 90%;
+  }
 }
