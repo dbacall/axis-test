@@ -1,8 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import AddTodo from './addTodoComponent';
+import api from '../../services/api';
 
-const addTodoContainer = () => {
-  return <AddTodo />;
+const AddTodoContainer = () => {
+  const [todoAdded, setTodoAdded] = useState(false);
+
+  const createTodo = async (data) => {
+    const path = '/todo';
+
+    await api.request({ method: 'post', data, path });
+
+    setTodoAdded(true);
+  };
+
+  return <AddTodo createTodo={createTodo} todoAdded={todoAdded} />;
 };
 
-export default addTodoContainer;
+export default AddTodoContainer;

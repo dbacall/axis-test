@@ -1,16 +1,28 @@
 import React, { useState } from 'react';
-import styles from './addTodo.module.scss';
+import './addTodo.css';
 
-const AddTodo = () => {
+const AddTodo = ({ createTodo }) => {
   const [openForm, setOpenForm] = useState(false);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [dateToCompleteBy, setDateToCompleteBy] = useState('');
 
+  const submitTodo = (e) => {
+    e.preventDefault();
+
+    const data = {
+      name,
+      description,
+      dateToCompleteBy,
+    };
+
+    createTodo(data);
+  };
+
   const renderForm = () => {
     if (openForm) {
       return (
-        <form>
+        <form onSubmit={submitTodo}>
           <input
             type="text"
             placeholder="Name"
@@ -29,13 +41,14 @@ const AddTodo = () => {
             value={dateToCompleteBy}
             onChange={(e) => setDateToCompleteBy(e.target.value)}
           />
+          <button>Submit</button>
         </form>
       );
     }
   };
 
   return (
-    <div className={styles.addTodo}>
+    <div className="addTodo">
       <button onClick={() => setOpenForm(!openForm)}>Add Todo</button>
       {renderForm()}
     </div>
