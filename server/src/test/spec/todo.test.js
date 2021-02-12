@@ -47,18 +47,37 @@ describe('Todo', () => {
     expect(data.description).to.equal('complete tech test quicker');
   });
 
-  it.only('should delete a todo', async () => {
+  it('should delete a todo', async () => {
     const completeDate = new Date(2021, 02, 24);
 
     const todo = await addTodo('Tech Test', 'complete tech test', completeDate);
 
     const res = await supertest(app).delete(`/todo/${todo.data._id}`);
-    console.log(res.body);
 
     const data = await Todo.findOne({ name: 'Tech Test' });
 
-    console.log(data);
-
     expect(data).to.be.null;
+  });
+
+  it.only('should update if a todo is completed', async () => {
+    const completeDate = new Date(2021, 02, 24);
+
+    const todo = await addTodo('Tech Test', 'complete tech test', completeDate);
+
+    const update1 = { completed: true };
+    await supertest(app).put(`/todo/${todo.data._id}`).send(update1);
+
+    let data = await Todo.findOne({ name: 'Tech Test' });
+
+    expect(data.name).to.equal('Tech Test');
+    expect(data.completed).to.be.true;
+
+    const update2 = { completed: false };
+    await supertest(app).put(`/todo/${todo.data._id}`).send(update2);
+
+    data = await Todo.findOne({ name: 'Tech Test' });
+
+    expect(data.name).to.equal('Tech Test');
+    expect(data.completed).to.be.false;
   });
 });

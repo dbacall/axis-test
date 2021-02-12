@@ -30,6 +30,7 @@ const TodoController = {
       {
         description: req.body.description,
         dateToCompleteBy: req.body.dateToCompleteBy,
+        completed: req.body.completed,
       }
     )
       .then((data) =>
