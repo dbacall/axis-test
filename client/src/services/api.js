@@ -1,7 +1,4 @@
 import axios from 'axios';
-import { config } from '../config/config';
-
-const url = process.env.REACT_APP_API_URL;
 
 const api = {
   request: async ({ method, data = null, path, config }) => {
@@ -14,7 +11,7 @@ const api = {
 
     var payload = {
       method,
-      url: url + path,
+      url: 'http://localhost:5000' + path,
     };
 
     // //optional params
