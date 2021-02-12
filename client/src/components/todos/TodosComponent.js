@@ -5,7 +5,14 @@ import { format, parseISO } from 'date-fns';
 import { enGB } from 'date-fns/locale';
 import Checkbox from '@material-ui/core/Checkbox';
 
-const Todos = ({ loading, todos }) => {
+const Todos = ({ loading, todos, updateTodoCompleted }) => {
+  const handleUpdate = ({ id, completed }) => {
+    const data = {
+      completed: !completed,
+    };
+    updateTodoCompleted(data, id);
+  };
+
   const renderTodoRows = () => {
     if (todos.length > 0) {
       return todos.map((todo, index) => (
@@ -13,12 +20,18 @@ const Todos = ({ loading, todos }) => {
           <td>{todo.name}</td>
           <td>{todo.description}</td>
           <td>
-            {format(parseISO(todo.dateToCompleteBy), 'P', { locale: enGB })}
+            {todo.dateToCompleteBy &&
+              format(parseISO(todo.dateToCompleteBy), 'P', { locale: enGB })}
           </td>
           <td>
             <Checkbox
               checked={todo.completed}
-              // onChange={handleChange}
+              onChange={() => {
+                handleUpdate({
+                  id: todo._id,
+                  completed: todo.completed,
+                });
+              }}
               inputProps={{ 'aria-label': 'primary checkbox' }}
             />
           </td>
