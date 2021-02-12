@@ -33,9 +33,3 @@ tbody > tr:nth-child(odd) {
   padding: 10px 15px;
   margin-right: 20px;
 }
-
-@media only screen and (max-width: 576px) {
-  table {
-    /* width: 200px; */
-  }
-}
