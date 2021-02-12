@@ -5,18 +5,35 @@ import { format, parseISO } from 'date-fns';
 import { enGB } from 'date-fns/locale';
 import Checkbox from '@material-ui/core/Checkbox';
 
-const Todos = ({ loading, todos, updateTodoCompleted, deleteTodo }) => {
+const Todos = ({
+  loading,
+  todos,
+  updateTodoCompleted,
+  deleteTodo,
+  updateTodo,
+}) => {
   const [openForm, setOpenForm] = useState(false);
-  const [todoIndexToEdit, setTodoIndexToEdit] = useState('');
+  const [todoIndexToEdit, setTodoIndexToEdit] = useState(null);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [dateToCompleteBy, setDateToCompleteBy] = useState('');
 
-  const handleUpdate = ({ id, completed }) => {
+  const handleUpdateCompleted = ({ id, completed }) => {
     const data = {
       completed: !completed,
     };
     updateTodoCompleted(data, id);
+  };
+
+  const handleUpdate = (id) => {
+    const data = {
+      name,
+      description,
+      dateToCompleteBy,
+    };
+    updateTodo(data, id);
+    setOpenForm(false);
+    setTodoIndexToEdit(null);
   };
 
   const handleDelete = (id) => {
@@ -68,7 +85,7 @@ const Todos = ({ loading, todos, updateTodoCompleted, deleteTodo }) => {
             <Checkbox
               checked={todo.completed}
               onChange={() => {
-                handleUpdate({
+                handleUpdateCompleted({
                   id: todo._id,
                   completed: todo.completed,
                 });
@@ -78,12 +95,7 @@ const Todos = ({ loading, todos, updateTodoCompleted, deleteTodo }) => {
           </td>
           <td>
             {index === todoIndexToEdit ? (
-              <button
-                onClick={() => {
-                  setTodoIndexToEdit(index);
-                  setOpenForm(!openForm);
-                }}
-              >
+              <button onClick={() => handleUpdate(todo._id)}>
                 Complete Edit
               </button>
             ) : (

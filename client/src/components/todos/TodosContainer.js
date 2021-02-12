@@ -35,6 +35,21 @@ const TodosContainer = ({ todoAdded }) => {
     setLoading(false);
   };
 
+  const updateTodo = async (data, id) => {
+    setTodoUpdated(false);
+
+    setLoading(true);
+
+    const path = `/todo/${id}`;
+
+    console.log(path);
+
+    await api.request({ method: 'put', data, path });
+
+    setTodoUpdated(true);
+    setLoading(false);
+  };
+
   const deleteTodo = async (id) => {
     setTodoDeleted(false);
 
@@ -55,6 +70,7 @@ const TodosContainer = ({ todoAdded }) => {
       loading={loading}
       todos={todos}
       updateTodoCompleted={updateTodoCompleted}
+      updateTodo={updateTodo}
       deleteTodo={deleteTodo}
     />
   );

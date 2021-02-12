@@ -28,9 +28,9 @@ const TodoController = {
     await Todo.findByIdAndUpdate(
       { _id: req.params.id },
       {
+        name: req.body.name,
         description: req.body.description,
         dateToCompleteBy: req.body.dateToCompleteBy,
-        completed: req.body.completed,
       }
     )
       .then((data) =>
